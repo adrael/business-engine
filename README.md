@@ -92,7 +92,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 [dev-url]: https://david-dm.org/Adrael/business-engine#info=devDependencies
 [peer-image]: https://david-dm.org/Adrael/business-engine/peer-status.svg
 [peer-url]: https://david-dm.org/Adrael/business-engine#info=peerDependenciess
-[coverage-image]: https://coveralls.io/repos/github/Adrael/business-engine/badge.svg?branch=dev
+[coverage-image]: https://coveralls.io/repos/github/Adrael/business-engine/badge.svg?branch=master
 [coverage-url]: https://coveralls.io/github/Adrael/business-engine?branch=master
 [known-image]: https://snyk.io/test/github/Adrael/business-engine/badge.svg
 [known-url]: https://snyk.io/test/github/Adrael/business-engine
