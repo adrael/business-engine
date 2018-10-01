@@ -78,7 +78,7 @@ See also the list of [contributors](https://github.com/Adrael/business-engine/co
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
 [npm-image]: https://badge.fury.io/js/business-engine.svg
 [npm-url]: https://badge.fury.io/js/business-engine
@@ -93,7 +93,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 [peer-image]: https://david-dm.org/Adrael/business-engine/peer-status.svg
 [peer-url]: https://david-dm.org/Adrael/business-engine#info=peerDependenciess
 [coverage-image]: https://coveralls.io/repos/github/Adrael/business-engine/badge.svg?branch=dev
-[coverage-url]: https://coveralls.io/github/Adrael/business-engine?branch=dev
+[coverage-url]: https://coveralls.io/github/Adrael/business-engine?branch=master
 [known-image]: https://snyk.io/test/github/Adrael/business-engine/badge.svg
 [known-url]: https://snyk.io/test/github/Adrael/business-engine
 [npm-downloads-image]: https://img.shields.io/npm/dm/business-engine.svg
