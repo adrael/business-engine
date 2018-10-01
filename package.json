@@ -1,0 +1,50 @@
+{
+    "name": "business-engine",
+    "version": "1.0.0",
+    "description": "`business-engine` helps you enforce business rules on your domain. Easily testable and standalone, you will now have freedom over your code base.",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "repository": "https://github.com/Adrael/business-engine.git",
+    "author": "Raphaël MARQUES <work.rmarques@gmail.com>",
+    "license": "MIT",
+    "private": false,
+    "bugs": "https://github.com/Adrael/business-engine/issues",
+    "homepage": "https://github.com/Adrael/business-engine#readme",
+    "scripts": {
+        "prebuild": "rimraf dist",
+        "build": "tsc -p tsconfig.json --outDir dist",
+        "test": "nyc mocha",
+        "posttest": "rimraf .nyc_output",
+        "lint": "tslint -t stylish -c tslint.json -p tsconfig.json 'lib/**/*.ts'",
+        "prettier": "prettier --write lib/**/*.ts"
+    },
+    "devDependencies": {
+        "@types/chai": "4.1.6",
+        "@types/lodash": "4.14.116",
+        "@types/mocha": "5.2.5",
+        "@types/uuid": "3.4.4",
+        "@types/verror": "1.10.3",
+        "chai": "4.2.0",
+        "mocha": "5.2.0",
+        "mocha-typescript": "1.1.17",
+        "nyc": "13.0.1",
+        "prettier": "1.14.3",
+        "rimraf": "2.6.2",
+        "source-map-support": "0.5.9",
+        "ts-node": "7.0.1",
+        "tslint": "5.11.0",
+        "tslint-clean-code": "0.2.7",
+        "tslint-consistent-codestyle": "1.13.3",
+        "tslint-eslint-rules": "5.4.0",
+        "tslint-sonarts": "1.8.0",
+        "typescript": "3.1.1"
+    },
+    "dependencies": {
+        "coveralls": "3.0.2",
+        "immutable": "3.8.2",
+        "lodash": "4.17.11",
+        "typescript-optional": "1.8.0",
+        "uuid": "3.3.2",
+        "verror": "1.10.0"
+    }
+}

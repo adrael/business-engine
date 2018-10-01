@@ -1,0 +1,27 @@
+{
+    "exclude": [
+        "**/*.d.ts"
+    ],
+    "include": [
+        "lib/**/*.ts"
+    ],
+    "extension": [
+        ".ts"
+    ],
+    "require": [
+        "ts-node/register",
+        "source-map-support/register"
+    ],
+    "reporter": [
+        "lcov",
+        "text-summary"
+    ],
+    "lines": 100,
+    "statements": 100,
+    "functions": 100,
+    "branches": 100,
+    "all": true,
+    "sourceMap": true,
+    "check-coverage": true,
+    "instrumentation": true
+}

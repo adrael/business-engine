@@ -1,0 +1,4 @@
+--recursive
+--full-trace
+test/**/*.spec.ts
+lib/**/*.ts

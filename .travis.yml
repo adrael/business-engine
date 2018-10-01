@@ -1,0 +1,25 @@
+sudo: false
+language: nodejs
+node_js:
+- 8
+- "stable"
+
+git:
+    depth:
+        1
+
+addons:
+    apt:
+        update: true
+
+before_script:
+- node -v
+- yarn
+
+script:
+- yarn lint
+- yarn test
+- yarn build:prod
+
+after_success:
+- "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
