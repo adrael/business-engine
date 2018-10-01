@@ -11,6 +11,16 @@ git:
 addons:
     apt:
         update: true
+        sources:
+            - sourceline: 'deb https://dl.yarnpkg.com/debian/ stable main'
+              key_url: 'https://dl.yarnpkg.com/debian/pubkey.gpg'
+            packages:
+            - yarn
+
+cache:
+    yarn: true
+    directories:
+    - node_modules
 
 before_script:
 - node -v
