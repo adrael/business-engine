@@ -8,8 +8,9 @@
 [![Peer Dependencies][peer-image]][peer-url]
 [![Coverage Status][coverage-image]][coverage-url]
 [![Known Vulnerabilities][known-image]][known-url]
-[![npm downloads][npm-image]][npm-url]
+[![npm downloads][npm-downloads-image]][npm-downloads-url]
 [![GitHub license][github-license-image]][github-license-url]
+[![GitHub version][github-version-image]][github-version-url]
 [![code style: prettier][prettier-image]][prettier-url]
 
 > Empower your software!
@@ -81,7 +82,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 [npm-image]: https://badge.fury.io/js/business-engine.svg
 [npm-url]: https://badge.fury.io/js/business-engine
-[build-image]: https://travis-ci.org/Adrael/business-engine.svg?branch=dev
+[build-image]: https://travis-ci.org/Adrael/business-engine.svg?branch=master
 [build-url]: https://travis-ci.org/Adrael/business-engine
 [github-issues-image]: https://img.shields.io/github/issues/Adrael/business-engine.svg
 [github-issues-url]: https://github.com/Adrael/business-engine/issues
@@ -95,9 +96,11 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 [coverage-url]: https://coveralls.io/github/Adrael/business-engine?branch=dev
 [known-image]: https://snyk.io/test/github/Adrael/business-engine/badge.svg
 [known-url]: https://snyk.io/test/github/Adrael/business-engine
-[npm-image]: https://img.shields.io/npm/dm/business-engine.svg
-[npm-url]: https://npmjs.org/business-engine
+[npm-downloads-image]: https://img.shields.io/npm/dm/business-engine.svg
+[npm-downloads-url]: https://npmjs.org/business-engine
 [github-license-image]: https://img.shields.io/github/license/Adrael/business-engine.svg
 [github-license-url]: https://github.com/Adrael/business-engine/blob/master/LICENSE
+[github-version-url]: https://badge.fury.io/gh/Adrael%2Fbusiness-engine
+[github-version-image]: https://badge.fury.io/gh/Adrael%2Fbusiness-engine.svg
 [prettier-image]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg
 [prettier-url]: https://github.com/prettier/prettier
