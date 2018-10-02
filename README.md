@@ -19,6 +19,8 @@
 rules against your domain. Testable, standalone, opinionated and framework agnostic,
 you now have the power to make your code base shiny again.
 
+It can be used on its own, or altogether with some other tools, such as Mongoose.
+
 ## Installation
 
 ```sh
@@ -31,9 +33,159 @@ or
 yarn add business-engine --exact --latest
 ```
 
-## Running the tests
+## Usage
+
+Because *Business Engine* is totally DOM free and UI Independent, you can basically do whatever you want with it.
+An example would be to check whether a given entity is valid according to predefined business rules.
+We could ask the engine to check said entity in a dedicated service, upon creation or update.
+
+Let's do it. We will show how to validate a simple user representation against a few business rules.
+
+Here is what our `User` domain looks like:
+
+```typescript
+export class User {
+    public email: string;
+    public lastName: string;
+    public firstName: string;
+}
+```
+
+Let's review which business rules we would like to apply on this User class.
+
+1 - First name property is mandatory
+2 - Email property should match a given email pattern (anything that ends in `@gmail.com`), but only when we create it
+2 - Email property should be unique in our database
+
+The first and second rules are quite easy to implement. Actually, there are even rules shipped with *Business Engine* that will do the work for us.
+We will use the `StringPropertyRequiredRule` and `StringFormatRule` rules, respectively.
+
+The latter is a bit more complicated. As *Business Engine* is database agnostic, this kind of rules cannot be pre-implemented for us.
+We have to do it ourselves. For brevity, we won't show the database logic.
+Let's implement the `UniqueUserEmailRule` rule.
+
+```typescript
+import { isNil } from "lodash";
+import { User } from "../domain/User";
+import { BusinessRule, BusinessRuleError } from "business-engine";
+
+// IMPORTANT NOTE
+// The entire business engine logic is built around optionals.
+import Optional from "typescript-optional";
+
+export class UniqueUserEmailRule<User> extends BusinessRule<User> {
+
+    // This method allows you to implement some kind of routing logic.
+    // If the rule applies to your entity, then return true.
+    // If not, return false.
+    // For example, this can be useful if you only want to target a specific mode
+    // no matter what. Or if the rule must only target entities containing specific properties,
+    // and so on.
+    public isApplicable(user: User): boolean {
+        return true;
+    }
+
+    protected checkForCreation(user: User): Optional<BusinessRuleError<User>> {
+        // ... database logic to check if user's email address is already taken
+
+        if (/* email address already in use */) {
+            // When the entity being check is not compliant
+            // the engine expects an error to be returned.
+            return Optional.ofNonNull(this.buildError(user));
+        }
+
+        // When the entity being checked is valid, no error should be risen.
+        // Therefore an error-free optional.
+        return Optional.empty();
+    }
+
+    // In our case, the UPDATE logic is just the same as the CREATE logic
+    protected checkForUpdate(user: User): Optional<BusinessRuleError<User>> {
+        return this.checkForCreation(user);
+    }
+
+    private buildError(user: User): BusinessRuleError<User> {
+        return new BusinessRuleError<User>("my-project.errors.email.already.used", "email must be unique")
+            .set("EMAIL", user.email);
+    }
+}
+
+```  
+
+Let's say we have a `UserService` which role is to handle all user interactions, between our resource layer and our repository layer.
+It has the duty to make sure our `User` conforms to our rules before making it to the next layer.
+
+```typescript
+import { List } from "immutable";
+import { User } from "../domain/User";
+import { UniqueUserEmailRule } from "../rules/UniqueUserEmailRule";
+import { BusinessRuleService, IBusinessRule, BusinessRuleMode, StringPropertyRequiredRule, StringFormatRule } from "business-engine";
+
+export class UserService extends BusinessRuleService {
+    // The rules will be applied one after the other, stopping at the first error.
+    protected readonly businessRules: List<IBusinessRule<User>> = List(
+        // Creating a rule that can be applied in CREATE and UPDATE mode on the firstName property
+        new StringPropertyRequiredRule<User>(BusinessRuleMode.ANY, "firstName"),
+        
+        // Again, CREATE mode only, on email property, with the pattern validator
+        new StringFormatRule<User>(BusinessRuleMode.CREATE, "email", /.*@gmail\.com$/i),
+        
+        // Finally our custom rule
+        new UniqueUserEmailRule(BusinessRuleMode.ANY)
+    );
+    
+    public createUser(user: User): User {
+        // Will throw an error if user does not comply with our rules
+        this.checkForCreation(user);
+        
+        // ... your logic here
+    }
+    
+    public updateUser(user: User): User {
+        // Will throw an error if user does not comply with our rules
+        this.checkForUpdate(user);
+        
+        // ... your logic here
+    }
+}
+```
+
+### Embedded rules
+
+By design, *Business Engine* is shipped with a few handful of useful basic rules.
+
+Here is the list:
+
+- `StringFormatRule`
+Checks if a given entity's property comply to a given pattern
+
+- `StringPropertyRequiredRule`
+Checks if a given entity's string property if present (e.g. not null, not undefined and not empty) 
+
+- `ObjectPropertyRequiredRule`
+Checks if a given entity's property if present (e.g. not null and not undefined) 
+
+
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct,
+and the process for submitting pull requests to us.
+
+### Setup
+
+Everything should be available without you installing anything globally.
+Just run this command and you are good to go:
+
+```sh
+yarn
+```
+
+### Running the tests
 
 *Business Engine* uses Mocha and Chai under the hood. Shipped with 100% test coverage.
+If you intend to improve the code, or add business rules, your PR is expected to keep the 100% test coverage ratio.
+
+To run the tests, just do:
 
 ```sh
 npm test
@@ -44,27 +196,6 @@ or
 ```sh
 yarn test
 ```
-
-## Usage
-
-TODO
-
-### Embedded rules
-
-By design, *Business Engine* is shipped with a few handful of useful basic rules.
-
-Here is the list:
-
-|          | String | Object |
-|:--------:|:------:|:------:|
-|  Format  |    X   |        |
-| Required |    X   |    X   |
-|          |        |        |
-
-## Contributing
-
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct,
-and the process for submitting pull requests to us.
 
 ## Versioning
 

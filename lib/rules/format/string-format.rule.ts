@@ -1,7 +1,6 @@
 import { isNil } from "lodash";
 import Optional from "typescript-optional";
-import { BusinessRule, BusinessRuleMode } from "../..";
-import { BusinessRuleError } from "../../domain/BusinessRuleError";
+import { BusinessRule, BusinessRuleError, BusinessRuleMode } from "../..";
 
 export class StringFormatRule<T> extends BusinessRule<T> {
     private readonly pattern: RegExp;

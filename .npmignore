@@ -1,1 +1,12 @@
 lib/
+coverage/
+test/
+.github/
+.idea/
+.editorconfig
+.nycrc
+.travis.yml
+CONTRIBUTING.md
+tsconfig.json
+tslint.json
+yarn.lock

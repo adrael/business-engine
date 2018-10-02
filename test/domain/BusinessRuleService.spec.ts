@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { List } from "immutable";
 import { suite, test } from "mocha-typescript";
-import { BusinessRuleControl, BusinessRuleMode, IBusinessRule, StringPropertyRequiredRule } from "../../lib";
+import { BusinessRuleService, BusinessRuleMode, IBusinessRule, StringPropertyRequiredRule } from "../../lib";
 
 class FakeClassMock {
     public readonly property: any;
@@ -11,13 +11,17 @@ class FakeClassMock {
     }
 }
 
-export class EmptyServiceMock extends BusinessRuleControl<any> {
+export class EmptyServiceMock extends BusinessRuleService<any> {
     public getBusinessRulesMock(): List<IBusinessRule<any>> {
         return this.businessRules;
     }
 }
 
-export class FakeServiceMock extends BusinessRuleControl<FakeClassMock> {
+export class FakeServiceMock extends BusinessRuleService<FakeClassMock> {
+    protected readonly businessRules: List<IBusinessRule<FakeClassMock>> = List([
+        new StringPropertyRequiredRule<FakeClassMock>(BusinessRuleMode.ANY, "property")
+    ]);
+
     public create(fakeClassMock: FakeClassMock): FakeClassMock {
         this.checkForCreation(fakeClassMock);
         return fakeClassMock;
@@ -31,14 +35,10 @@ export class FakeServiceMock extends BusinessRuleControl<FakeClassMock> {
     public getBusinessRulesMock(): List<IBusinessRule<any>> {
         return this.businessRules;
     }
-
-    protected getBusinessRules(): List<IBusinessRule<FakeClassMock>> {
-        return List([ new StringPropertyRequiredRule<FakeClassMock>(BusinessRuleMode.ANY, "property") ]);
-    }
 }
 
-@suite("[UNIT] BusinessRuleControl")
-class BusinessRuleControlSpec {
+@suite("[UNIT] BusinessRuleService")
+class BusinessRuleServiceSpec {
     @test
     "should initialize with no business rules if not defined"(): void {
         const emptyServiceMock = new EmptyServiceMock();

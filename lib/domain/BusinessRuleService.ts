@@ -3,12 +3,8 @@ import { BusinessRuleHelper } from "./BusinessRuleHelper";
 import { BusinessRuleMode } from "./BusinessRuleMode";
 import { IBusinessRule } from "./IBusinessRule";
 
-export abstract class BusinessRuleControl<T> {
+export abstract class BusinessRuleService<T> {
     protected readonly businessRules: List<IBusinessRule<T>> = List();
-
-    constructor() {
-        this.businessRules = this.getBusinessRules();
-    }
 
     protected checkForCreation(item: T): void {
         BusinessRuleHelper.applyBusinessRules(
@@ -24,9 +20,5 @@ export abstract class BusinessRuleControl<T> {
             item,
             this.businessRules
         );
-    }
-
-    protected getBusinessRules(): List<IBusinessRule<T>> {
-        return List();
     }
 }

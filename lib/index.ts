@@ -1,5 +1,5 @@
 export * from "./domain/BusinessRule";
-export * from "./domain/BusinessRuleControl";
+export * from "./domain/BusinessRuleService";
 export * from "./domain/BusinessRuleError";
 export * from "./domain/BusinessRuleException";
 export * from "./domain/BusinessRuleHelper";
